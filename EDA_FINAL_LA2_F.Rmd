@@ -1,0 +1,1154 @@
+---
+title: "EDA-LA2"
+date: '2022-07-03'
+output: pdf_document
+---
+
+Submitted by: 'Pratyush Sharma(1NT19IS118),Harshit Shahi(1NT19IS057)'
+Github Link: 'https://github.com/Hrahsit45/EDA_LA_2.git'
+output: pdf_document
+
+```{r}
+df<-read.csv(file.choose())
+library(ggplot2)
+
+```
+
+```{r}
+df
+
+```
+
+```{r}
+plot(df$Year,df$Life.expectancy)
+```
+
+
+```{r}
+ggplot(df, aes(x = Year, y = Life.expectancy)) +
+geom_point()
+```
+
+
+```{r}
+plot(df$Year,df$Life.expectancy,type = "l")
+```
+
+
+```{r}
+ggplot(df, aes(x = Year, y = Life.expectancy)) +
+geom_line()
+
+```
+
+
+```{r}
+ggplot(df, aes(x =Entity, y = Life.expectancy)) +
+geom_point()
+
+```
+
+
+```{r}
+ggplot(df, aes(x = Year, y = Life.expectancy)) +
+geom_line() +
+geom_point()
+
+```
+
+
+```{r}
+barplot(df$Life.expectancy)
+
+
+```
+
+
+```{r}
+ggplot(df, aes(x = Year, y = Life.expectancy)) +
+geom_col()
+
+```
+
+
+```{r}
+ggplot(df, aes(x =Entity)) +
+geom_bar()
+```
+
+
+```{r}
+hist(df$Life.expectancy, breaks = 10)
+
+
+```
+
+
+```{r}
+ggplot(df, aes(x = Life.expectancy)) +
+geom_histogram()
+```
+
+
+```{r}
+ggplot(df, aes(x = Life.expectancy)) +
+geom_histogram(binwidth=10)
+```
+
+
+```{r}
+ggplot(df, aes(x = Year, y = Life.expectancy)) +geom_boxplot()
+
+```
+
+
+```{r}
+curve(x^3 - 4*x, from = -6, to = 6)
+```
+
+
+```{r}
+myfun <- function(xvar) {
+1 / (1 + exp(-xvar + 10))
+}
+curve(myfun(x), from = 0, to = 20)
+curve(1 - myfun(x), add = TRUE, col = "blue")
+```
+
+
+```{r}
+str(df)
+```
+
+
+```{r}
+ggplot(df, aes(x = Entity, y = Year)) +
+geom_col(fill = "lightblue", colour = "black")
+```
+
+
+```{r}
+library(gcookbook)
+ggplot(cabbage_exp, aes(x = Date, y = Weight, fill = Cultivar)) +
+geom_col(position = "dodge", colour = "red") +
+scale_fill_brewer(palette = "Pastel2")
+
+```
+
+
+```{r}
+ce <- cabbage_exp[1:5, ]
+ggplot(ce, aes(x = Date, y = Weight, fill = Cultivar)) +
+geom_col(position = "dodge", colour = "red") +
+scale_fill_brewer(palette = "Pastel2")
+
+```
+
+
+```{r}
+ggplot(diamonds, aes(x = cut)) +
+geom_bar()
+```
+
+
+
+```{r}
+library(dplyr)
+```
+
+
+```{r}
+phn <- uspopchange %>%
+arrange(desc(Change)) %>%
+slice(1:15)
+```
+
+
+```{r}
+ggplot(phn, aes(x = Abb, y = Change, fill = Region)) +
+geom_col()
+
+```
+
+
+```{r}
+ggplot(phn, aes(x = reorder(Abb, Change), y = Change, fill = Region)) +
+geom_col(colour = "red") +
+scale_fill_manual(values = c("#669933", "#FFCC34")) +
+xlab("State")
+```
+
+
+```{r}
+climate_sub <- climate %>%
+filter(Source == "Berkeley" & Year >= 1920) %>%
+mutate(pos = Anomaly10y >= 0)
+climate_sub
+```
+
+
+```{r}
+ggplot(climate_sub, aes(x = Year, y = Anomaly10y, fill = pos)) +
+geom_col(position = "identity")
+```
+
+
+```{r}
+ggplot(climate_sub, aes(x = Year, y = Anomaly10y, fill = pos)) +
+geom_col(position = "identity", colour = "white", size = 0.30) +
+scale_fill_manual(values = c("#CCEEFF", "#FFDDDD"), guide = FALSE)
+
+```
+
+
+```{r}
+ggplot(df, aes(x = Entity, y = Year )) +
+geom_col()
+```
+
+
+```{r}
+ggplot(df, aes(x = df$Year, y = df$Entity)) +
+geom_col(width = 0.6)
+```
+
+
+```{r}
+ggplot(pg_mean, aes(x = group, y = weight)) +
+geom_col(width = 1)
+```
+
+
+```{r}
+ggplot(cabbage_exp, aes(x = Date, y = Weight, fill = Cultivar)) +
+geom_col(width = 0.7, position = "dodge")
+```
+
+
+```{r}
+ggplot(df, aes(x = Year, y = Life.expectancy)) +
+geom_col(width = 0.5, position = position_dodge(0.7))
+```
+
+
+```{r}
+geom_bar(position = "dodge")
+
+```
+
+
+```{r}
+geom_bar(width = 0.9, position = position_dodge())
+
+```
+
+
+```{r}
+geom_bar(position = position_dodge(0.9))
+
+```
+
+
+
+```{r}
+ggplot(cabbage_exp, aes(x = Date, y = Weight, fill = Cultivar)) +
+geom_col()
+```
+
+
+```{r}
+ggplot(cabbage_exp, aes(x = Date, y = Weight, fill = Cultivar)) +
+geom_col(position = position_stack(reverse = TRUE)) +
+guides(fill = guide_legend(reverse = TRUE))
+
+```
+
+
+```{r}
+ggplot(cabbage_exp, aes(x = Date, y = Weight, fill = Cultivar)) +
+geom_col(colour = "black") +
+scale_fill_brewer(palette = "Pastel2")
+```
+
+
+```{r}
+ggplot(cabbage_exp, aes(x = Date, y = Weight, fill = Cultivar)) +
+geom_col(position = "fill") +
+scale_y_continuous(labels = scales::percent)
+```
+
+
+```{r}
+ggplot(cabbage_exp, aes(x = Date, y = Weight, fill = Cultivar)) +
+geom_col(colour = "black", position = "fill") +
+scale_y_continuous(labels = scales::percent) +
+scale_fill_brewer(palette = "Pastel2")
+```
+
+
+```{r}
+nd <- cabbage_exp %>%
+group_by(Date) %>%
+mutate(percent_weight = Weight / sum(Weight) * 100)
+nd
+```
+
+
+```{r}
+ggplot(nd, aes(x = Date, y = percent_weight, fill = Cultivar)) +
+geom_col()
+```
+
+
+```{r}
+ggplot(cabbage_exp, aes(x = interaction(Date, Cultivar), y = Weight)) +
+geom_col() +
+geom_text(aes(label = Weight), vjust = 1.3, colour = "black")
+
+```
+
+
+```{r}
+ggplot(mtcars, aes(x = factor(cyl))) +
+geom_bar() +
+geom_text(aes(label = ..count..), stat = "count", vjust = 1.4,
+colour = "red")
+```
+
+
+```{r}
+ggplot(cabbage_exp, aes(x = interaction(Date, Cultivar), y = Weight)) +
+geom_col() +
+geom_text(aes(label = Weight), vjust = -0.2) +
+ylim(0, max(cabbage_exp$Weight) * 1.05)
+```
+
+
+```{r}
+ggplot(cabbage_exp, aes(x = interaction(Date, Cultivar), y = Weight)) +
+geom_col() +
+geom_text(aes(y = Weight + 0.1, label = Weight))
+```
+
+
+```{r}
+ggplot(cabbage_exp, aes(x = Date, y = Weight, fill = Cultivar)) +
+geom_col(position = "dodge") +
+geom_text(
+aes(label = Weight),
+colour = "black", size = 2.5,
+vjust = 1.4, position = position_dodge(.9)
+)
+```
+
+
+```{r}
+tophit <- tophitters2001[1:30, ]
+ggplot(tophit, aes(x = avg, y = name)) +
+geom_point()
+```
+
+
+```{r}
+tophit[, c("name", "lg", "avg")]
+```
+
+
+```{r}
+ggplot(tophit, aes(x = avg, y = reorder(name, avg))) +
+geom_point(size = 2.5) +
+theme_bw() +
+theme(
+panel.grid.major.x = element_blank(),
+panel.grid.minor.x = element_blank(),
+panel.grid.major.y = element_line(colour = "grey60", linetype = "dashed"),
+axis.text.x = element_text(angle = 60, hjust = 1)
+
+)
+
+```
+
+
+```{r}
+nameorder <- tophit$name[order(tophit$lg, tophit$avg)]
+tophit$name <- factor(tophit$name, levels = nameorder)
+ggplot(tophit, aes(x = avg, y = name)) +
+geom_segment(aes(yend = name), xend = 0, colour = "grey50") +
+geom_point(size = 3, aes(colour = lg)) +
+scale_colour_brewer(palette = "Set1", limits = c("NL", "AL")) +
+theme_bw() +
+theme(
+panel.grid.major.y = element_blank(), 
+legend.position = c(1, 0.55), 
+legend.justification = c(1, 0.5)
+)
+
+```
+
+
+```{r}
+ggplot(BOD, aes(x = Time, y = demand)) +
+geom_line()
+```
+
+
+```{r}
+BOD1 <- BOD 
+BOD1$Time <- factor(BOD1$Time)
+ggplot(BOD1, aes(x = Time, y = demand, group = 1)) +
+geom_line()
+```
+
+
+```{r}
+ggplot(BOD, aes(x = Time, y = demand)) +
+geom_line() +
+geom_point()
+```
+
+
+```{r}
+ggplot(worldpop, aes(x = Year, y = Population)) +
+geom_line() +
+geom_point()
+```
+
+
+```{r}
+ggplot(worldpop, aes(x = Year, y = Population)) +
+geom_line() +
+geom_point() +
+scale_y_log10()
+```
+
+
+```{r}
+ggplot(tg, aes(x = dose, y = length, colour = supp)) +
+geom_line()
+```
+
+
+```{r}
+ggplot(tg, aes(x = dose, y = length, linetype = supp)) +
+geom_line()
+
+```
+
+
+```{r}
+ggplot(tg, aes(x = factor(dose), y = length, colour = supp)) + geom_line()
+```
+
+
+```{r}
+ggplot(tg, aes(x = dose, y = length)) +
+geom_line()
+```
+
+
+```{r}
+ggplot(tg, aes(x = dose, y = length, shape = supp)) +
+geom_line() +
+geom_point(size = 4)
+```
+
+
+```{r}
+ggplot(tg, aes(x = dose, y = length, fill = supp)) +
+geom_line() +
+geom_point(size = 5, shape = 21)
+```
+
+
+```{r}
+ggplot(BOD, aes(x = Time, y = demand)) +
+geom_line(linetype = "dashed", size = 0.8, colour = "red")
+```
+
+
+```{r}
+ggplot(tg, aes(x = dose, y = length, colour = supp)) +
+geom_line() +
+scale_colour_brewer(palette = "Set2")
+```
+
+
+```{r}
+ggplot(tg, aes(x = dose, y = length, group = supp)) +
+geom_line(colour ="green", size = 1.6)
+```
+
+
+```{r}
+ggplot(tg, aes(x = dose, y = length, colour = supp)) +
+geom_line(linetype = "dashed") +
+geom_point(shape = 22, size = 2.5, fill = "black")
+
+```
+
+
+```{r}
+ggplot(BOD, aes(x = Time, y = demand)) +
+geom_line() +
+geom_point(size = 3, shape = 22, colour = "red", fill = "green")
+
+```
+
+
+```{r}
+ggplot(BOD, aes(x = Time, y = demand)) +
+geom_line() +
+geom_point(size = 4, shape = 21, fill = "black")
+```
+
+
+```{r}
+pd <- position_dodge(0.2)
+ggplot(tg, aes(x = dose, y = length, fill = supp)) +
+geom_line(position = pd) +
+geom_point(shape = 21, size = 3, position = pd) +
+scale_fill_manual(values = c("white","black"))
+
+```
+
+
+```{r}
+sunspotyear <- data.frame(
+Year = as.numeric(time(sunspot.year)),
+Sunspots = as.numeric(sunspot.year)
+)
+ggplot(sunspotyear, aes(x = Year, y = Sunspots)) +
+geom_area()
+```
+
+
+```{r}
+ggplot(sunspotyear, aes(x = Year, y = Sunspots)) +
+geom_area(colour = "black", fill = "red", alpha = .2)
+```
+
+
+```{r}
+ggplot(uspopage, aes(x = Year, y = Thousands, fill = AgeGroup)) +
+geom_area()
+```
+
+
+```{r}
+uspopage
+
+```
+
+
+```{r}
+ggplot(uspopage, aes(x = Year, y = Thousands, fill = AgeGroup)) +
+geom_area(colour = "black", size = .2, alpha = .4) +
+scale_fill_brewer(palette = "Reds")
+
+```
+
+
+```{r}
+ggplot(uspopage, aes(x = Year, y = Thousands, fill = AgeGroup)) +
+geom_area(position = "fill", colour = "black", size = .2, alpha = .4) +
+scale_fill_brewer(palette = "Reds") +
+scale_y_continuous(labels = scales::percent)
+```
+
+
+```{r}
+climate_mod <- climate %>%
+filter(Source == "Berkeley") %>%
+select(Year, Anomaly10y, Unc10y)
+climate_mod
+
+```
+
+
+```{r}
+ggplot(climate_mod, aes(x = Year, y = Anomaly10y)) +
+geom_ribbon(aes(ymin = Anomaly10y - Unc10y,
+ymax = Anomaly10y + Unc10y),
+alpha = 0.2) +
+geom_line()
+
+```
+
+
+```{r}
+ggplot(climate_mod, aes(x = Year, y = Anomaly10y)) +
+geom_line(aes(y = Anomaly10y - Unc10y), colour = "blue",
+linetype = "dotted") +
+geom_line(aes(y = Anomaly10y + Unc10y), colour = "blue",
+linetype = "dotted") +
+geom_line()
+```
+
+
+```{r}
+df%>%
+select(Entity,Year )
+
+```
+
+
+```{r}
+ggplot(df, aes(x = Year, y = Entity)) +
+geom_point()
+```
+
+
+```{r}
+ggplot(df, aes(x = Entity, y = Year)) +
+geom_point()
+
+```
+
+
+```{r}
+ggplot(df, aes(x = Year, y = Life.expectancy)) +
+geom_point()
+
+```
+
+
+```{r}
+ggplot(df, aes(x = Entity, y = Life.expectancy)) +
+geom_point()
+```
+
+
+```{r}
+ggplot(df, aes(x = Year, y = Life.expectancy)) +
+geom_point(shape = 21)
+```
+
+
+```{r}
+plot(heightweight, aes(x = ageYear, y = heightIn)) +
+geom_point(size = 1.5)
+```
+
+
+```{r}
+ggplot(df, aes(x = Year, y = Life.expectancy)) +
+geom_point(size = 1.5)
+```
+
+
+```{r}
+heightweight %>%
+select(sex, ageYear, heightIn)
+
+```
+
+```{r}
+ggplot(heightweight, aes(x = ageYear, y = heightIn, shape = sex, colour = sex)) +
+geom_point()
+```
+
+
+```{r}
+ggplot(heightweight, aes(x = ageYear, y = heightIn, shape = sex, colour = sex)) +
+geom_point() +
+scale_shape_manual(values = c(1,2)) +
+scale_colour_brewer(palette = "Set2")
+```
+
+
+```{r}
+ggplot(df, aes(x = Entity, y = Life.expectancy)) +
+geom_point(shape = 2)
+```
+
+
+```{r}
+ggplot(df, aes(x = Year, y = Life.expectancy)) +
+geom_point(shape = 3)
+```
+
+
+```{r}
+ggplot(heightweight, aes(x = ageYear, y = heightIn, shape = sex)) +
+geom_point(size = 3) +
+scale_shape_manual(values = c(1, 4))
+
+```
+
+
+```{r}
+ht <- heightweight %>%
+mutate(weightgroup = ifelse(weightLb < 100, "< 100", ">= 100"))
+```
+
+
+```{r}
+ggplot(ht, aes(x = ageYear, y = heightIn, shape = sex, fill = weightgroup)) +
+geom_point(size = 2.5) +
+scale_shape_manual(values = c(21, 24)) +
+scale_fill_manual(
+values = c(NA, "black"),
+guide = guide_legend(override.aes = list(shape = 21))
+)
+```
+
+
+```{r}
+heightweight %>%
+select(sex, ageYear, heightIn, weightLb)
+```
+
+
+```{r}
+ggplot(heightweight, aes(x = ageYear, y = heightIn, colour = weightLb)) +
+geom_point()
+
+```
+
+
+```{r}
+ggplot(heightweight, aes(x = ageYear, y = heightIn, size = weightLb)) +
+geom_point()
+```
+
+
+```{r}
+range(df$Year)
+```
+
+
+```{r}
+sz_range <- range(df$Year) / max(df$Year) * 5
+```
+
+
+```{r}
+sz_range
+
+```
+
+
+```{r}
+ggplot(df, aes(x = Entity, y = Life.expectancy, size = Year)) +
+geom_point() +
+scale_size_continuous(range = sz_range)
+
+```
+
+
+```{r}
+ggplot(df, aes(x = Entity, y = Life.expectancy, size = Year)) +
+geom_point() +
+scale_size_area()
+```
+
+
+```{r}
+ggplot(df, aes(x = Year, y = Life.expectancy, fill = Year)) +
+geom_point(shape = 21, size = 2.5) +
+scale_fill_gradient(low = "white", high = "black")
+
+```
+
+
+```{r}
+ggplot(df, aes(x = Year, y = Life.expectancy, fill = Year)) +
+geom_point(shape = 21, size = 2.5) +
+scale_fill_gradient(
+low = "black", high = "white",
+breaks = seq(70, 170, by = 20),
+guide = guide_legend()
+)
+```
+
+
+```{r}
+dmnd_sp <- ggplot(df, aes(x = Year, y = Life.expectancy))
+dmnd_sp +
+geom_point()
+```
+
+
+```{r}
+dmnd_sp +
+geom_point(alpha = .1)
+
+```
+
+
+```{r}
+dmnd_sp +
+geom_point(alpha = .04)
+```
+
+
+```{r}
+dmnd_sp +
+stat_bin2d()
+```
+
+
+```{r}
+dmnd_sp +
+stat_bin2d(bins = 50) +
+scale_fill_gradient(low = "green", high = "red", limits = c(0, 6000))
+
+```
+
+
+```{r}
+cw_sp <- ggplot(ChickWeight, aes(x = Time, y = weight))
+cw_sp +
+geom_point()
+
+```
+
+
+```{r}
+cw_sp +
+geom_point(position = "jitter")
+```
+
+
+```{r}
+cw_sp +
+geom_point(position = position_jitter(width = .5, height = 0))
+
+```
+
+
+```{r}
+cw_sp +
+geom_boxplot(aes(group = Time))
+```
+
+
+```{r}
+cw_sp +
+geom_boxplot()
+
+```
+
+
+```{r}
+dmnd_sp +
+geom_point() +
+stat_smooth(method = lm)
+
+
+```
+
+
+```{r}
+dmnd_sp +
+geom_point() +
+stat_smooth(method = lm, level = 0.8)
+```
+
+
+```{r}
+dmnd_sp +
+geom_point() +
+stat_smooth(method = lm, se = FALSE)
+
+```
+
+
+```{r}
+dmnd_sp +
+geom_point(colour = "grey60") +
+stat_smooth(method = lm, se = FALSE, colour = "black")
+
+```
+
+
+```{r}
+dmnd_sp +
+geom_point(colour = "grey60") +
+stat_smooth()
+```
+
+
+```{r}
+dmnd_sp + geom_point(colour = "black") +
+stat_smooth(method = loess)
+```
+
+
+```{r}
+library(MASS)
+
+```
+
+
+
+```{r}
+hw_sp <- ggplot(heightweight, aes(x = ageYear, y = heightIn, colour = sex)) +
+geom_point() +
+scale_colour_brewer(palette = "Set1")
+hw_sp +
+geom_smooth()
+```
+
+
+```{r}
+hw_sp +
+geom_smooth(method = lm, se = FALSE, fullrange = TRUE)
+```
+
+
+```{r}
+ggplot(df, aes(x = Year, y = Life.expectancy, colour = Year)) +
+geom_point() +
+geom_line(data = df)
+
+```
+
+
+```{r}
+ggplot(df, aes(x = Year, y = Life.expectancy)) +
+geom_point() +
+geom_rug()
+
+```
+
+
+```{r}
+countries_sub <- countries %>%
+filter(Year == 2009 & healthexp > 2000)
+countries_sp <- ggplot(countries_sub, aes(x = healthexp, y = infmortality)) +
+geom_point()
+countries_sp +
+annotate("text", x = 4350, y = 5.4, label = "Can") +
+annotate("text", x = 7400, y = 6.8, label = "USA")
+
+```
+
+
+```{r}
+countries_sp +
+geom_text(aes(label = Name), size = 3)
+```
+
+
+```{r}
+ggplot(df, aes(x = Year)) +
+  geom_histogram()
+```
+
+
+```{r}
+
+ggplot(df, aes(x = Life.expectancy)) +
+geom_histogram()
+```
+
+
+```{r}
+w <- df$Year
+ggplot(NULL, aes(x = w)) +
+geom_histogram()
+
+```
+
+
+```{r}
+ggplot(df, aes(x = Life.expectancy)) +
+geom_histogram(binwidth = 5, fill = "black", colour = "white")
+
+
+```
+
+
+```{r}
+bs <- diff(range(df$Year))/15
+ggplot(df, aes(x = Life.expectancy)) +
+geom_histogram(binwidth = bs,fill = "black", colour = "white")
+
+```
+
+```{r}
+ggplot(df, aes(x = Year)) + geom_histogram(fill = "white", colour = "black") +
+facet_grid(Entity ~ .)
+
+```
+
+
+```{r}
+ggplot(df, aes(x = Year, fill = Entity)) +
+geom_histogram(position = "identity", alpha = 0.4)
+
+
+```
+
+
+```{r}
+ggplot(df, aes(x = Year)) +
+geom_density()
+```
+
+
+```{r}
+ggplot(df, aes(x = Entity)) +
+geom_line(stat = "density") +
+expand_limits(y = 0)
+
+```
+
+
+```{r}
+w <- df$Life.expectancy
+ggplot(NULL, aes(x = w)) +
+geom_density()
+
+
+```
+
+
+```{r}
+ggplot(df, aes(x = Life.expectancy)) +
+geom_line(stat = "density") +
+geom_line(stat = "density", adjust = .25, colour = "blue") +
+geom_line(stat = "density", adjust = 2, colour = "red")
+
+
+```
+
+
+```{r}
+ggplot(df, aes(x = Life.expectancy)) +
+geom_density(fill = "blue", alpha = .2, colour = NA) +
+xlim(55, 115) +
+geom_line(stat = "density")
+
+
+```
+
+
+```{r}
+ggplot(df, aes(x = Life.expectancy)) +
+geom_density(fill = "blue", alpha = .2) +
+xlim(55, 115)
+```
+
+```{r}
+ggplot(df, aes(x = Life.expectancy, y = ..density..)) +
+geom_histogram(fill = "cornsilk", colour = "green", size = .2) +
+geom_density() +
+xlim(25, 95)
+
+
+```
+
+```{r}
+ggplot(df, aes(x=Year)) +
+geom_freqpoly()
+
+
+```
+
+
+```{r}
+ggplot(df, aes(x = Life.expectancy)) +
+geom_freqpoly(binwidth = 5)
+```
+
+
+```{r}
+ggplot(birthwt, aes(x = factor(race), y = bwt)) +
+geom_boxplot()
+```
+
+
+```{r}
+ggplot(birthwt, aes(x = factor(race), y = bwt)) +
+geom_boxplot(width = .7)
+```
+
+
+```{r}
+ggplot(birthwt, aes(x = 1, y = bwt)) +
+geom_boxplot() +
+scale_x_continuous(breaks = NULL) +
+theme(axis.title.x = element_blank())
+```
+
+
+```{r}
+hw_ <- ggplot(heightweight, aes(x = sex, y = heightIn))
+hw_ +
+geom_violin()
+```
+
+```{r}
+hw_ +
+geom_violin() +
+geom_boxplot(width = .2, fill = "green", outlier.colour = NA) +
+stat_summary(fun.y = median, geom = "point", fill = "white", shape = 21,
+size = 3.5)
+```
+
+
+```{r}
+hw_ +
+geom_violin(trim = FALSE)
+```
+
+
+```{r}
+hw_ +
+geom_violin(adjust = 4)
+
+```
+
+
+```{r}
+hw_ +
+geom_violin(adjust = .8)
+
+```
+
+
+```{r}
+c <- countries %>%
+filter(Year == 2009 & healthexp > 2000)
+c_p <- ggplot(c, aes(x = infmortality))
+c_p +
+geom_dotplot()
+
+```
+
+
+```{r}
+ggplot(df, aes(x = Year, y = Life.expectancy)) +
+geom_dotplot(binaxis = "y", binwidth = .5, stackdir = "center")
+```
+
+
+```{r}
+ggplot(df, aes(x = Year, y = Life.expectancy)) +
+geom_boxplot(outlier.colour = NA, width = .6) +
+geom_dotplot(binaxis = "y", binwidth = .7, stackdir = "center", fill = NA)
+
+```
+
+
+```{r}
+faith <- ggplot(df, aes(x = Year, y = Life.expectancy))
+faith +
+geom_point() +
+stat_density2d()
+```
+
+
+```{r}
+faith +
+stat_density2d(aes(colour = ..level..))
+```
+
+
+```{r}
+faith +
+stat_density2d(aes(fill = ..density..), geom = "raster", contour = FALSE)
+```
+
